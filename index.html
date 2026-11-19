@@ -167,6 +167,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);outline-off
 .opt input[type=checkbox]:checked+span::before{box-shadow:none;background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-6.5' fill='none' stroke='white' stroke-width='2.4'/%3E%3C/svg%3E") center/12px no-repeat}
 .opt input:focus-visible+span{outline:2px solid var(--red2);outline-offset:2px}
 .other-in{margin-top:8px}
+[hidden]{display:none!important}
+.steambox{margin-top:14px;padding:16px;border:1px solid #33454d;border-radius:6px;background:var(--bg)}
+.steam-note{margin:0 0 8px;font-size:15px}
+.limited{margin:0 0 14px;font-size:14px;color:#ffc9ca;background:rgba(229,56,59,.1);border-left:3px solid var(--red);padding:8px 12px}
+.steam-btn{display:inline-flex;align-items:center;gap:10px;background:#171a21;color:#fff;border:1px solid #66c0f4;border-radius:4px;padding:12px 18px;font-weight:700;text-decoration:none;min-height:48px}
+.steam-btn:hover{background:#1b2838}
+.steam-btn:focus-visible{outline:2px solid #66c0f4;outline-offset:2px}
+.steam-ok{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#a4d007;font-weight:700}
+.steam-ok code{color:var(--ink);font-weight:500}
+.steam-reset{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;font:inherit;font-size:14px;padding:6px}
+.steam-wait{color:var(--mute)}
 .count{display:block;text-align:right;color:var(--mute);font-size:13px;margin-top:4px}
 .consent{border-top:1px solid var(--line);padding-top:26px}
 .check{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;cursor:pointer;font-size:15px}
@@ -357,9 +368,18 @@ footer img{width:120px;opacity:.85}
         <div class="err"><span class="ko">올바른 메일 주소를 입력해 주세요.</span><span class="en">Please enter a valid email address.</span><span class="ja">正しいメールアドレスを入力してください。</span><span class="zhs">请输入有效的邮箱地址。</span><span class="zht">請輸入有效的電子郵件地址。</span></div>
       </fieldset>
 
-      <fieldset>
-        <legend class="fit"><span class="ko">테스트 플랫폼</span><span class="en">Test platform</span><span class="ja">テストプラットフォーム</span><span class="zhs">测试平台</span><span class="zht">測試平台</span><span class="hint"><span class="ko">당첨 시 선택한 플랫폼의 키를 보내드립니다.</span><span class="en">If selected, you'll receive a key for this platform.</span><span class="ja">当選時、選択したプラットフォームのキーをお送りします。</span><span class="zhs">中选后将发送所选平台的激活码。</span><span class="zht">中選後將寄送所選平台的序號。</span></span></legend>
+      <fieldset data-req="platform">
+        <legend class="fit"><span class="ko">테스트 플랫폼</span><span class="en">Test platform</span><span class="ja">テストプラットフォーム</span><span class="zhs">测试平台</span><span class="zht">測試平台</span><span class="req">*</span><span class="hint"><span class="ko">당첨 시 선택한 플랫폼의 키를 보내드립니다.</span><span class="en">If selected, you'll receive a key for this platform.</span><span class="ja">当選時、選択したプラットフォームのキーをお送りします。</span><span class="zhs">中选后将发送所选平台的激活码。</span><span class="zht">中選後將寄送所選平台的序號。</span></span></legend>
         <div class="opts" data-opts="platform" data-type="radio"></div>
+        <div class="err"><span class="ko">플랫폼을 선택해 주세요.</span><span class="en">Please choose a platform.</span><span class="ja">プラットフォームを選択してください。</span><span class="zhs">请选择平台。</span><span class="zht">請選擇平台。</span></div>
+        <div class="steambox" id="steambox" hidden data-req="steam">
+          <p class="steam-note"><span class="ko">Steam 신청은 Steam 계정으로 로그인해야 하며, Steam 계정 하나당 한 번만 신청할 수 있습니다.</span><span class="en">Steam applicants must sign in with Steam. One application per Steam account.</span><span class="ja">Steamで応募する場合はSteamアカウントでのログインが必要で、1アカウントにつき1回まで応募できます。</span><span class="zhs">通过Steam报名需登录Steam账号，每个Steam账号仅限报名一次。</span><span class="zht">透過Steam報名需登入Steam帳號，每個Steam帳號僅限報名一次。</span></p>
+          <p class="limited"><span class="ko"><b>Steam 제한된 사용자(Limited) 계정은 신청할 수 없습니다.</b> Steam에서 5달러 이상 결제한 적이 없는 계정이 해당되며, 추첨 대상에서 제외됩니다.</span><span class="en"><b>Limited Steam accounts are not eligible.</b> Accounts that have never spent at least US$5 on Steam are limited and will be excluded from the draw.</span><span class="ja"><b>Steamの制限付きユーザー（Limited）アカウントは応募できません。</b> Steamで5ドル以上の購入履歴がないアカウントが該当し、抽選の対象外となります。</span><span class="zhs"><b>Steam受限用户（Limited）账号无法报名。</b> 在Steam累计消费未满5美元的账号属于受限账号，将不参与抽选。</span><span class="zht"><b>Steam受限使用者（Limited）帳號無法報名。</b> 在Steam累計消費未滿5美元的帳號屬於受限帳號，將不列入抽選。</span></p>
+          <a class="steam-btn" id="steamLogin" href="#"><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M12 0A12 12 0 0 0 .1 11l6.4 2.7a3.4 3.4 0 0 1 2.2-.6l2.9-4.2v-.1a4.5 4.5 0 1 1 4.5 4.5h-.1l-4.1 2.9v.2a3.4 3.4 0 0 1-6.7.7L.6 15.2A12 12 0 1 0 12 0zM7.5 18.2l-1.5-.6a2.5 2.5 0 1 0 1.4-3.4l1.5.6a1.9 1.9 0 1 1-1.4 3.4zm11.6-9.3a3 3 0 1 0-3 3 3 3 0 0 0 3-3zm-5.3 0a2.3 2.3 0 1 1 2.3 2.3 2.3 2.3 0 0 1-2.3-2.3z"/></svg><span class="ko">Steam으로 로그인</span><span class="en">Sign in with Steam</span><span class="ja">Steamでログイン</span><span class="zhs">通过Steam登录</span><span class="zht">透過Steam登入</span></a>
+          <div class="steam-ok" id="steamOk" hidden><svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M12 0A12 12 0 0 0 .1 11l6.4 2.7a3.4 3.4 0 0 1 2.2-.6l2.9-4.2v-.1a4.5 4.5 0 1 1 4.5 4.5h-.1l-4.1 2.9v.2a3.4 3.4 0 0 1-6.7.7L.6 15.2A12 12 0 1 0 12 0zM7.5 18.2l-1.5-.6a2.5 2.5 0 1 0 1.4-3.4l1.5.6a1.9 1.9 0 1 1-1.4 3.4zm11.6-9.3a3 3 0 1 0-3 3 3 3 0 0 0 3-3zm-5.3 0a2.3 2.3 0 1 1 2.3 2.3 2.3 2.3 0 0 1-2.3-2.3z"/></svg><span><span class="ko">Steam 계정 연결됨</span><span class="en">Steam account connected</span><span class="ja">Steamアカウント連携済み</span><span class="zhs">已连接Steam账号</span><span class="zht">已連結Steam帳號</span> · <code id="steamId"></code></span> <button type="button" class="steam-reset" id="steamReset"><span class="ko">다른 계정</span><span class="en">Use another</span><span class="ja">別のアカウント</span><span class="zhs">更换账号</span><span class="zht">更換帳號</span></button></div>
+          <div class="steam-wait" id="steamWait" hidden><span class="ko">Steam 계정을 확인하는 중…</span><span class="en">Verifying your Steam account…</span><span class="ja">Steamアカウントを確認しています…</span><span class="zhs">正在验证Steam账号…</span><span class="zht">正在驗證Steam帳號…</span></div>
+          <div class="err"><span class="ko">Steam으로 로그인해 주세요.</span><span class="en">Please sign in with Steam.</span><span class="ja">Steamでログインしてください。</span><span class="zhs">请通过Steam登录。</span><span class="zht">請透過Steam登入。</span></div>
+        </div>
       </fieldset>
 
       <fieldset>
@@ -430,6 +450,7 @@ footer img{width:120px;opacity:.85}
       <details><summary class="fit"><span class="ko">신청하면 모두 테스트에 참여할 수 있나요?</span><span class="en">Does everyone who applies get in?</span><span class="ja">応募すれば全員テストに参加できますか？</span><span class="zhs">报名后都能参与测试吗？</span><span class="zht">報名後都能參與測試嗎？</span></summary><p><span class="ko">아니요. 12월 11일 전체 신청자 중 추첨으로 참가자를 선정하며, 당첨된 분께만 테스트 키를 메일로 보내드립니다.</span><span class="en">No. Participants are chosen by draw among all applicants on December 11, and only selected applicants receive a test key by email.</span><span class="ja">いいえ。12月11日に応募者全員の中から抽選で参加者を選び、当選された方にのみテストキーをメールでお送りします。</span><span class="zhs">不是。我们将于12月11日从所有报名者中抽选参与者，仅向中选者通过邮件发送测试激活码。</span><span class="zht">不是。我們將於12月11日從所有報名者中抽選參與者，僅向中選者以電子郵件寄送測試序號。</span></p></details>
       <details><summary class="fit"><span class="ko">당첨 여부는 어떻게 알 수 있나요?</span><span class="en">How will I know if I was selected?</span><span class="ja">当選したかどうかはどうやって分かりますか？</span><span class="zhs">如何知道自己是否中选？</span><span class="zht">如何知道自己是否中選？</span></summary><p><span class="ko">당첨자에게는 신청서에 적은 메일 주소로 키와 안내가 발송됩니다. 받은편지함에 없다면 스팸함·프로모션함을 확인해 주세요.</span><span class="en">Winners get their key and instructions at the email address on their application. Check spam or promotions folders if it isn't in your inbox.</span><span class="ja">当選者には、応募フォームに記入したメールアドレスにキーとご案内をお送りします。受信トレイにない場合は、迷惑メールやプロモーションフォルダをご確認ください。</span><span class="zhs">我们会将激活码和说明发送至中选者报名时填写的邮箱。如收件箱中没有，请检查垃圾邮件或推广邮件文件夹。</span><span class="zht">我們會將序號與說明寄送至中選者報名時填寫的信箱。如收件匣中沒有，請檢查垃圾郵件或促銷郵件資料夾。</span></p></details>
       <details><summary class="fit"><span class="ko">여러 번 신청하면 당첨 확률이 올라가나요?</span><span class="en">Can I apply more than once?</span><span class="ja">何度も応募すると当選確率が上がりますか？</span><span class="zhs">多次报名能提高中选几率吗？</span><span class="zht">多次報名能提高中選機率嗎？</span></summary><p><span class="ko">메일 주소 하나당 한 번만 신청할 수 있으며, 중복 신청은 추첨에서 제외될 수 있습니다.</span><span class="en">One application per email address. Duplicate applications may be excluded from the draw.</span><span class="ja">応募はメールアドレス1つにつき1回までです。重複応募は抽選対象外となる場合があります。</span><span class="zhs">每个邮箱仅限报名一次，重复报名可能会被排除在抽选之外。</span><span class="zht">每個信箱僅限報名一次，重複報名可能會被排除於抽選之外。</span></p></details>
+      <details><summary class="fit"><span class="ko">Steam 계정이 Limited여도 신청할 수 있나요?</span><span class="en">Can I apply with a Limited Steam account?</span><span class="ja">Limitedアカウントでも応募できますか？</span><span class="zhs">Limited账号可以报名吗？</span><span class="zht">Limited帳號可以報名嗎？</span></summary><p><span class="ko">아니요. Steam에서 5달러 이상 결제한 적이 없는 제한된 사용자(Limited) 계정은 신청할 수 없으며, 추첨 대상에서 제외됩니다. Steam 신청은 Steam 계정 하나당 한 번만 가능합니다.</span><span class="en">No. Limited accounts (those that have never spent at least US$5 on Steam) are not eligible and will be excluded from the draw. Steam applications are limited to one per Steam account.</span><span class="ja">いいえ。Steamで5ドル以上の購入履歴がない制限付きユーザー（Limited）アカウントは応募できず、抽選の対象外となります。Steamでの応募は1アカウントにつき1回までです。</span><span class="zhs">不可以。在Steam累计消费未满5美元的受限用户（Limited）账号无法报名，并将不参与抽选。通过Steam报名每个账号仅限一次。</span><span class="zht">不可以。在Steam累計消費未滿5美元的受限使用者（Limited）帳號無法報名，並將不列入抽選。透過Steam報名每個帳號僅限一次。</span></p></details>
       <details><summary class="fit"><span class="ko">어떤 플랫폼으로 참여하나요?</span><span class="en">Which platform is the test on?</span><span class="ja">どのプラットフォームで参加できますか？</span><span class="zhs">可以在哪些平台参与？</span><span class="zht">可以在哪些平台參與？</span></summary><p><span class="ko">PC(Steam)와 PlayStation 5로 진행됩니다. 신청서에서 원하는 플랫폼을 선택해 주세요. 키 등록과 설치 방법은 당첨 메일에서 안내드립니다.</span><span class="en">The test runs on PC (Steam) and PlayStation 5. Choose your platform in the application. Instructions for redeeming and installing are in the winner email.</span><span class="ja">PC（Steam）とPlayStation 5で実施します。応募フォームでご希望のプラットフォームを選択してください。キーの登録方法とインストール方法は当選メールでご案内します。</span><span class="zhs">测试将在PC（Steam）和PlayStation 5上进行。请在报名表中选择您想要的平台。激活码兑换及安装方法将在中选邮件中说明。</span><span class="zht">測試將在PC（Steam）與PlayStation 5上進行。請在報名表中選擇您想要的平台。序號兌換及安裝方式將在中選信件中說明。</span></p></details>
       <details><summary class="fit"><span class="ko">받은 키를 다른 사람에게 줘도 되나요?</span><span class="en">Can I give my key to someone else?</span><span class="ja">受け取ったキーを他の人に譲ってもいいですか？</span><span class="zhs">可以把激活码送给别人吗？</span><span class="zht">可以把序號送給別人嗎？</span></summary><p><span class="ko">키는 당첨자 본인용입니다. 판매하거나 양도한 사실이 확인되면 키가 비활성화될 수 있습니다.</span><span class="en">Keys are for the selected applicant only. Keys found to be sold or transferred may be deactivated.</span><span class="ja">キーは当選者ご本人専用です。販売や譲渡が確認された場合、キーが無効になることがあります。</span><span class="zhs">激活码仅限中选者本人使用。如发现出售或转让行为，激活码可能会被停用。</span><span class="zht">序號僅限中選者本人使用。如發現販售或轉讓行為，序號可能會被停用。</span></p></details>
     </div>
@@ -482,11 +503,11 @@ const OPTS={
   style:[['solo','주로 혼자','Mostly solo','主にソロ','主要单人','主要單人'],['friends','친구와 협동','Co-op with friends','友達と協力','与好友合作','與好友合作'],['match','매칭으로 만난 사람과 협동','Co-op via matchmaking','マッチングで協力','通过匹配与他人合作','透過配對與他人合作'],['mixed','골고루','A mix of all','いろいろ','都有','都有']]
 };
 const T={
-  ko:{sending:'제출 중…',dup:'이미 이 메일 주소로 신청하셨습니다. 한 메일 주소당 한 번만 신청할 수 있습니다.',closed:'신청이 마감되었습니다.',fail:'제출하지 못했습니다. 잠시 후 다시 시도해 주세요.',check:'입력하지 않은 필수 항목이 있습니다.'},
-  ja:{sending:'送信中…',dup:'このメールアドレスはすでに応募済みです。応募はメールアドレス1つにつき1回までです。',closed:'応募は締め切りました。',fail:'送信できませんでした。しばらくしてから再度お試しください。',check:'必須項目が入力されていません。'},
-  zhs:{sending:'提交中…',dup:'该邮箱已报名。每个邮箱仅限报名一次。',closed:'报名已截止。',fail:'提交失败，请稍后再试。',check:'有必填项尚未填写。'},
-  zht:{sending:'提交中…',dup:'此信箱已報名。每個信箱僅限報名一次。',closed:'報名已截止。',fail:'提交失敗，請稍後再試。',check:'有必填欄位尚未填寫。'},
-  en:{sending:'Submitting…',dup:'This email address has already been used to apply. One application per email.',closed:'Sign-ups are closed.',fail:'We couldn\'t submit your application. Please try again shortly.',check:'Some required fields are missing.'}
+  ko:{dupSteam:'이미 이 Steam 계정으로 신청하셨습니다. Steam 계정 하나당 한 번만 신청할 수 있습니다.',steamFail:'Steam 계정 확인에 실패했습니다. 다시 로그인해 주세요.',sending:'제출 중…',dup:'이미 이 메일 주소로 신청하셨습니다. 한 메일 주소당 한 번만 신청할 수 있습니다.',closed:'신청이 마감되었습니다.',fail:'제출하지 못했습니다. 잠시 후 다시 시도해 주세요.',check:'입력하지 않은 필수 항목이 있습니다.'},
+  ja:{dupSteam:'このSteamアカウントはすでに応募済みです。1アカウントにつき1回までです。',steamFail:'Steamアカウントの確認に失敗しました。もう一度ログインしてください。',sending:'送信中…',dup:'このメールアドレスはすでに応募済みです。応募はメールアドレス1つにつき1回までです。',closed:'応募は締め切りました。',fail:'送信できませんでした。しばらくしてから再度お試しください。',check:'必須項目が入力されていません。'},
+  zhs:{dupSteam:'该Steam账号已报名。每个Steam账号仅限报名一次。',steamFail:'Steam账号验证失败，请重新登录。',sending:'提交中…',dup:'该邮箱已报名。每个邮箱仅限报名一次。',closed:'报名已截止。',fail:'提交失败，请稍后再试。',check:'有必填项尚未填写。'},
+  zht:{dupSteam:'此Steam帳號已報名。每個Steam帳號僅限報名一次。',steamFail:'Steam帳號驗證失敗，請重新登入。',sending:'提交中…',dup:'此信箱已報名。每個信箱僅限報名一次。',closed:'報名已截止。',fail:'提交失敗，請稍後再試。',check:'有必填欄位尚未填寫。'},
+  en:{dupSteam:'This Steam account has already applied. One application per Steam account.',steamFail:'We could not verify your Steam account. Please sign in again.',sending:'Submitting…',dup:'This email address has already been used to apply. One application per email.',closed:'Sign-ups are closed.',fail:'We couldn\'t submit your application. Please try again shortly.',check:'Some required fields are missing.'}
 };
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const f=$('#f'), esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
@@ -551,13 +572,72 @@ f.addEventListener('input',e=>{
 const isBackend=()=>!!(window.google&&google.script&&google.script.run);
 if(!isBackend()&&!CONFIG.ENDPOINT)$('#demo').classList.add('on');
 
+// ---------- Steam OpenID ----------
+const steam={token:'',id:''};
+const SS={get(k){try{return sessionStorage.getItem(k)}catch(e){return null}},set(k,v){try{sessionStorage.setItem(k,v)}catch(e){}},del(k){try{sessionStorage.removeItem(k)}catch(e){}}};
+const sbox=$('#steambox');
+function steamShow(){
+  const on=(f.querySelector('input[name=platform]:checked')||{}).value==='steam';
+  sbox.hidden=!on;
+  $('#steamLogin').hidden=!!steam.token;$('#steamOk').hidden=!steam.token;$('#steamId').textContent=steam.id;
+}
+function steamClear(){steam.token='';steam.id='';SS.del('wpca-steam');steamShow()}
+try{const s=JSON.parse(SS.get('wpca-steam')||'null');if(s&&s.token){steam.token=s.token;steam.id=s.id}}catch(e){}
+function saveDraft(){
+  const fd=new FormData(f),o={};for(const [k,v] of fd.entries()){if(k==='website')continue;(o[k]=o[k]||[]).push(v)}
+  SS.set('wpca-draft',JSON.stringify(o));
+}
+function loadDraft(){
+  let o;try{o=JSON.parse(SS.get('wpca-draft')||'null')}catch(e){}
+  if(!o)return;SS.del('wpca-draft');
+  for(const [k,vals] of Object.entries(o)){
+    $$(`[name="${k}"]`).forEach(el=>{
+      if(el.type==='checkbox'||el.type==='radio')el.checked=vals.includes(el.value)||(el.value==='on'&&vals.includes('on'));
+      else el.value=vals[0];
+      if(el.type!=='checkbox'&&el.type!=='radio')el.dispatchEvent(new Event('input',{bubbles:true}));
+    });
+  }
+  ['games','action'].forEach(n=>{const o2=f.querySelector(`input[name=${n}][value=other]`);if(o2)f.querySelector(`input[name=${n}_other]`).hidden=!o2.checked});
+}
+$('#steamLogin').addEventListener('click',e=>{
+  e.preventDefault();
+  if(!CONFIG.ENDPOINT&&!isBackend()){steam.token='preview';steam.id='76561190000000000';steamShow();return}
+  saveDraft();
+  const back=location.origin+location.pathname+'?steam_return=1';
+  const q=new URLSearchParams({'openid.ns':'http://specs.openid.net/auth/2.0','openid.mode':'checkid_setup','openid.return_to':back,'openid.realm':location.origin+'/','openid.identity':'http://specs.openid.net/auth/2.0/identifier_select','openid.claimed_id':'http://specs.openid.net/auth/2.0/identifier_select'});
+  location.href='https://steamcommunity.com/openid/login?'+q.toString();
+});
+$('#steamReset').addEventListener('click',steamClear);
+f.addEventListener('change',e=>{if(e.target.name==='platform')steamShow()});
+(async()=>{
+  const qs=new URLSearchParams(location.search);
+  if(qs.get('openid.mode')==='id_res'||qs.get('openid.mode')==='cancel'){
+    loadDraft();
+    const ps={};for(const [k,v] of qs.entries())if(k.startsWith('openid.'))ps[k]=v;
+    history.replaceState(null,'',location.pathname+location.hash);
+    const pr=f.querySelector('input[name=platform][value=steam]');if(pr)pr.checked=true;
+    steamShow();
+    setTimeout(()=>$('#apply').scrollIntoView({block:'start'}),50);
+    if(ps['openid.mode']!=='id_res')return;
+    $('#steamLogin').hidden=true;$('#steamWait').hidden=false;
+    try{
+      const r=await fetch(CONFIG.ENDPOINT,{method:'POST',body:JSON.stringify({action:'steam_verify',params:ps})}).then(x=>x.json());
+      if(r&&r.ok){steam.token=r.token;steam.id=r.steamid;SS.set('wpca-steam',JSON.stringify(steam));sbox.classList.remove('bad')}
+      else{const m=$('#msg');m.textContent=T[lang][r&&r.code==='dup_steam'?'dupSteam':'steamFail'];m.classList.add('on')}
+    }catch(err){const m=$('#msg');m.textContent=T[lang].steamFail;m.classList.add('on')}
+    $('#steamWait').hidden=true;steamShow();
+  }else steamShow();
+})();
+
 function collect(){
   const fd=new FormData(f),g=k=>(fd.get(k)||'').toString().trim();
-  return {email:g('email').toLowerCase(),platform:g('platform'),games:fd.getAll('games').join(','),games_other:g('games_other'),action:fd.getAll('action').join(','),action_other:g('action_other'),skill:g('skill'),style:g('style'),why:g('why'),privacy:!!fd.get('privacy'),lottery:!!fd.get('lottery'),marketing:!!fd.get('marketing'),website:g('website'),lang,ua:navigator.userAgent.slice(0,200)};
+  return {email:g('email').toLowerCase(),platform:g('platform'),steam_token:steam.token||'',games:fd.getAll('games').join(','),games_other:g('games_other'),action:fd.getAll('action').join(','),action_other:g('action_other'),skill:g('skill'),style:g('style'),why:g('why'),privacy:!!fd.get('privacy'),lottery:!!fd.get('lottery'),marketing:!!fd.get('marketing'),website:g('website'),lang,ua:navigator.userAgent.slice(0,200)};
 }
 function validate(d){
   const bad=[];
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email))bad.push('email');
+  if(!d.platform)bad.push('platform');
+  if(d.platform==='steam'&&!d.steam_token)bad.push('steam');
   if(!d.privacy)bad.push('privacy');
   if(!d.lottery)bad.push('lottery');
   $$('[data-req]').forEach(el=>el.classList.toggle('bad',bad.includes(el.dataset.req)));
@@ -578,7 +658,8 @@ f.addEventListener('submit',async e=>{
   try{
     const r=await send(d);
     if(r&&r.ok){f.style.display='none';$('#doneMail').textContent=d.email;const dn=$('#done');dn.classList.add('on');dn.scrollIntoView({block:'start'});dn.focus({preventScroll:true});fit();return}
-    msg.textContent=T[lang][(r&&r.code)==='dup'?'dup':(r&&r.code)==='closed'?'closed':'fail'];
+    const code=r&&r.code;if(code==='steam'){steamClear();}
+    msg.textContent=T[lang][code==='dup_steam'?'dupSteam':code==='dup'?'dup':code==='closed'?'closed':code==='steam'?'steamFail':'fail'];
   }catch(err){msg.textContent=T[lang].fail}
   msg.classList.add('on');btn.disabled=false;btn.innerHTML=orig;
 });
