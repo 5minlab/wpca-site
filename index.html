@@ -178,6 +178,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--red);outline-off
 .steam-ok code{color:var(--ink);font-weight:500}
 .steam-reset{background:none;border:0;color:var(--mute);text-decoration:underline;cursor:pointer;font:inherit;font-size:14px;padding:6px}
 .steam-wait{color:var(--mute)}
+.recap{min-height:78px}
 .count{display:block;text-align:right;color:var(--mute);font-size:13px;margin-top:4px}
 .consent{border-top:1px solid var(--line);padding-top:26px}
 .check{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;cursor:pointer;font-size:15px}
@@ -380,6 +381,12 @@ footer img{width:120px;opacity:.85}
           <div class="steam-wait" id="steamWait" hidden><span class="ko">Steam 계정을 확인하는 중…</span><span class="en">Verifying your Steam account…</span><span class="ja">Steamアカウントを確認しています…</span><span class="zhs">正在验证Steam账号…</span><span class="zht">正在驗證Steam帳號…</span></div>
           <div class="err"><span class="ko">Steam으로 로그인해 주세요.</span><span class="en">Please sign in with Steam.</span><span class="ja">Steamでログインしてください。</span><span class="zhs">请通过Steam登录。</span><span class="zht">請透過Steam登入。</span></div>
         </div>
+        <div class="steambox" id="psbox" hidden data-req="captcha">
+          <p class="steam-note"><span class="ko">PlayStation 5 신청은 사람 인증이 필요합니다.</span><span class="en">PlayStation 5 applicants need to verify they are human.</span><span class="ja">PlayStation 5で応募する場合は、ロボットでないことの確認が必要です。</span><span class="zhs">PlayStation 5报名需要完成人机验证。</span><span class="zht">PlayStation 5報名需要完成人機驗證。</span></p>
+          <div id="recap" class="recap"></div>
+          <p class="steam-wait" id="recapPreview" hidden><span class="ko">미리보기에서는 인증이 표시되지 않습니다.</span><span class="en">Verification is not shown in preview.</span><span class="ja">プレビューでは認証は表示されません。</span><span class="zhs">预览模式下不显示验证。</span><span class="zht">預覽模式下不顯示驗證。</span></p>
+          <div class="err"><span class="ko">'로봇이 아닙니다'에 체크해 주세요.</span><span class="en">Please check “I'm not a robot”.</span><span class="ja">「私はロボットではありません」にチェックしてください。</span><span class="zhs">请勾选“进行人机身份验证”。</span><span class="zht">請勾選「我不是機器人」。</span></div>
+        </div>
       </fieldset>
 
       <fieldset>
@@ -493,6 +500,7 @@ footer img{width:120px;opacity:.85}
 {
 const CONFIG={
   ENDPOINT:'https://script.google.com/macros/s/AKfycbzx7O72-HDyEThuJ1_-lpfU1syOUdZ3mSCOBXMyDKXcrGQ94BGVENPJ9-K4GVfo8sAxbg/exec',   // ← wpca.dev에 올릴 때 Apps Script 웹 앱 URL(https://script.google.com/macros/s/…/exec)을 붙여넣기. 비어 있으면 '미리보기 모드'로 동작
+  RECAPTCHA_SITE:'6LfW8ScuAAAAAAbR4bp1X-ZpUnp3N6_iV9kXg-Ak', // PlayStation 신청 사람 인증 (reCAPTCHA v2)
   DEADLINE:'2026-12-13T23:59:59-12:00'      // 신청 마감 (AoE, UTC-12: 전 세계 마지막 시간대)
 };
 const OPTS={
@@ -503,11 +511,11 @@ const OPTS={
   style:[['solo','주로 혼자','Mostly solo','主にソロ','主要单人','主要單人'],['friends','친구와 협동','Co-op with friends','友達と協力','与好友合作','與好友合作'],['match','매칭으로 만난 사람과 협동','Co-op via matchmaking','マッチングで協力','通过匹配与他人合作','透過配對與他人合作'],['mixed','골고루','A mix of all','いろいろ','都有','都有']]
 };
 const T={
-  ko:{dupSteam:'이미 이 Steam 계정으로 신청하셨습니다. Steam 계정 하나당 한 번만 신청할 수 있습니다.',steamFail:'Steam 계정 확인에 실패했습니다. 다시 로그인해 주세요.',sending:'제출 중…',dup:'이미 이 메일 주소로 신청하셨습니다. 한 메일 주소당 한 번만 신청할 수 있습니다.',closed:'신청이 마감되었습니다.',fail:'제출하지 못했습니다. 잠시 후 다시 시도해 주세요.',check:'입력하지 않은 필수 항목이 있습니다.'},
-  ja:{dupSteam:'このSteamアカウントはすでに応募済みです。1アカウントにつき1回までです。',steamFail:'Steamアカウントの確認に失敗しました。もう一度ログインしてください。',sending:'送信中…',dup:'このメールアドレスはすでに応募済みです。応募はメールアドレス1つにつき1回までです。',closed:'応募は締め切りました。',fail:'送信できませんでした。しばらくしてから再度お試しください。',check:'必須項目が入力されていません。'},
-  zhs:{dupSteam:'该Steam账号已报名。每个Steam账号仅限报名一次。',steamFail:'Steam账号验证失败，请重新登录。',sending:'提交中…',dup:'该邮箱已报名。每个邮箱仅限报名一次。',closed:'报名已截止。',fail:'提交失败，请稍后再试。',check:'有必填项尚未填写。'},
-  zht:{dupSteam:'此Steam帳號已報名。每個Steam帳號僅限報名一次。',steamFail:'Steam帳號驗證失敗，請重新登入。',sending:'提交中…',dup:'此信箱已報名。每個信箱僅限報名一次。',closed:'報名已截止。',fail:'提交失敗，請稍後再試。',check:'有必填欄位尚未填寫。'},
-  en:{dupSteam:'This Steam account has already applied. One application per Steam account.',steamFail:'We could not verify your Steam account. Please sign in again.',sending:'Submitting…',dup:'This email address has already been used to apply. One application per email.',closed:'Sign-ups are closed.',fail:'We couldn\'t submit your application. Please try again shortly.',check:'Some required fields are missing.'}
+  ko:{captcha:'사람 인증에 실패했습니다. ‘로봇이 아닙니다’에 다시 체크해 주세요.',dupSteam:'이미 이 Steam 계정으로 신청하셨습니다. Steam 계정 하나당 한 번만 신청할 수 있습니다.',steamFail:'Steam 계정 확인에 실패했습니다. 다시 로그인해 주세요.',sending:'제출 중…',dup:'이미 이 메일 주소로 신청하셨습니다. 한 메일 주소당 한 번만 신청할 수 있습니다.',closed:'신청이 마감되었습니다.',fail:'제출하지 못했습니다. 잠시 후 다시 시도해 주세요.',check:'입력하지 않은 필수 항목이 있습니다.'},
+  ja:{captcha:'認証に失敗しました。もう一度「私はロボットではありません」にチェックしてください。',dupSteam:'このSteamアカウントはすでに応募済みです。1アカウントにつき1回までです。',steamFail:'Steamアカウントの確認に失敗しました。もう一度ログインしてください。',sending:'送信中…',dup:'このメールアドレスはすでに応募済みです。応募はメールアドレス1つにつき1回までです。',closed:'応募は締め切りました。',fail:'送信できませんでした。しばらくしてから再度お試しください。',check:'必須項目が入力されていません。'},
+  zhs:{captcha:'人机验证失败，请重新勾选验证。',dupSteam:'该Steam账号已报名。每个Steam账号仅限报名一次。',steamFail:'Steam账号验证失败，请重新登录。',sending:'提交中…',dup:'该邮箱已报名。每个邮箱仅限报名一次。',closed:'报名已截止。',fail:'提交失败，请稍后再试。',check:'有必填项尚未填写。'},
+  zht:{captcha:'人機驗證失敗，請重新勾選「我不是機器人」。',dupSteam:'此Steam帳號已報名。每個Steam帳號僅限報名一次。',steamFail:'Steam帳號驗證失敗，請重新登入。',sending:'提交中…',dup:'此信箱已報名。每個信箱僅限報名一次。',closed:'報名已截止。',fail:'提交失敗，請稍後再試。',check:'有必填欄位尚未填寫。'},
+  en:{captcha:'Verification failed. Please check “I’m not a robot” again.',dupSteam:'This Steam account has already applied. One application per Steam account.',steamFail:'We could not verify your Steam account. Please sign in again.',sending:'Submitting…',dup:'This email address has already been used to apply. One application per email.',closed:'Sign-ups are closed.',fail:'We couldn\'t submit your application. Please try again shortly.',check:'Some required fields are missing.'}
 };
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const f=$('#f'), esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
@@ -608,7 +616,21 @@ $('#steamLogin').addEventListener('click',e=>{
   location.href='https://steamcommunity.com/openid/login?'+q.toString();
 });
 $('#steamReset').addEventListener('click',steamClear);
-f.addEventListener('change',e=>{if(e.target.name==='platform')steamShow()});
+f.addEventListener('change',e=>{if(e.target.name==='platform'){steamShow();psShow()}});
+// ---------- PlayStation: reCAPTCHA ----------
+const psbox=$('#psbox');let recapId=null,recapLoading=false;
+const RECAP_HL={ko:'ko',en:'en',ja:'ja',zhs:'zh-CN',zht:'zh-TW'};
+const recapLive=()=>!!(CONFIG.ENDPOINT&&CONFIG.RECAPTCHA_SITE&&/(^|\.)wpca\.dev$/.test(location.hostname));
+window.onRecap=function(){recapId=grecaptcha.render('recap',{sitekey:CONFIG.RECAPTCHA_SITE,theme:'dark',callback:()=>psbox.classList.remove('bad'),'expired-callback':()=>{}})};
+function psShow(){
+  const on=(f.querySelector('input[name=platform]:checked')||{}).value==='ps';
+  psbox.hidden=!on;if(!on)return;
+  if(!recapLive()){$('#recapPreview').hidden=false;return}
+  if(recapId===null&&!recapLoading){recapLoading=true;const s=document.createElement('script');s.src='https://www.google.com/recaptcha/api.js?onload=onRecap&render=explicit&hl='+RECAP_HL[lang];s.async=true;document.head.appendChild(s)}
+}
+const recapToken=()=>recapId===null?'':(grecaptcha.getResponse(recapId)||'');
+const recapReset=()=>{try{if(recapId!==null)grecaptcha.reset(recapId)}catch(e){}};
+psShow();
 (async()=>{
   const qs=new URLSearchParams(location.search);
   if(qs.get('openid.mode')==='id_res'||qs.get('openid.mode')==='cancel'){
@@ -631,13 +653,14 @@ f.addEventListener('change',e=>{if(e.target.name==='platform')steamShow()});
 
 function collect(){
   const fd=new FormData(f),g=k=>(fd.get(k)||'').toString().trim();
-  return {email:g('email').toLowerCase(),platform:g('platform'),steam_token:steam.token||'',games:fd.getAll('games').join(','),games_other:g('games_other'),action:fd.getAll('action').join(','),action_other:g('action_other'),skill:g('skill'),style:g('style'),why:g('why'),privacy:!!fd.get('privacy'),lottery:!!fd.get('lottery'),marketing:!!fd.get('marketing'),website:g('website'),lang,ua:navigator.userAgent.slice(0,200)};
+  return {email:g('email').toLowerCase(),platform:g('platform'),steam_token:steam.token||'',captcha:(f.querySelector('input[name=platform]:checked')||{}).value==='ps'?recapToken():'',games:fd.getAll('games').join(','),games_other:g('games_other'),action:fd.getAll('action').join(','),action_other:g('action_other'),skill:g('skill'),style:g('style'),why:g('why'),privacy:!!fd.get('privacy'),lottery:!!fd.get('lottery'),marketing:!!fd.get('marketing'),website:g('website'),lang,ua:navigator.userAgent.slice(0,200)};
 }
 function validate(d){
   const bad=[];
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email))bad.push('email');
   if(!d.platform)bad.push('platform');
   if(d.platform==='steam'&&!d.steam_token)bad.push('steam');
+  if(d.platform==='ps'&&recapLive()&&!d.captcha)bad.push('captcha');
   if(!d.privacy)bad.push('privacy');
   if(!d.lottery)bad.push('lottery');
   $$('[data-req]').forEach(el=>el.classList.toggle('bad',bad.includes(el.dataset.req)));
@@ -658,9 +681,9 @@ f.addEventListener('submit',async e=>{
   try{
     const r=await send(d);
     if(r&&r.ok){f.style.display='none';$('#doneMail').textContent=d.email;const dn=$('#done');dn.classList.add('on');dn.scrollIntoView({block:'start'});dn.focus({preventScroll:true});fit();return}
-    const code=r&&r.code;if(code==='steam'){steamClear();}
-    msg.textContent=T[lang][code==='dup_steam'?'dupSteam':code==='dup'?'dup':code==='closed'?'closed':code==='steam'?'steamFail':'fail'];
-  }catch(err){msg.textContent=T[lang].fail}
+    const code=r&&r.code;if(code==='steam'){steamClear();}recapReset();
+    msg.textContent=T[lang][code==='dup_steam'?'dupSteam':code==='dup'?'dup':code==='closed'?'closed':code==='steam'?'steamFail':code==='captcha'?'captcha':'fail'];
+  }catch(err){msg.textContent=T[lang].fail;recapReset()}
   msg.classList.add('on');btn.disabled=false;btn.innerHTML=orig;
 });
 function fit(){for(const el of $$('.fit,.one')){el.style.fontSize='';if(!el.clientWidth||getComputedStyle(el).whiteSpace!=='nowrap')continue;let s=parseFloat(getComputedStyle(el).fontSize);while(el.scrollWidth>el.clientWidth+1&&s>12){s-=.5;el.style.fontSize=s+'px'}}}
