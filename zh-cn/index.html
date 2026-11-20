@@ -244,6 +244,11 @@ footer img{width:120px;opacity:.85}
 @media (max-width:600px){html[data-lang=ja] .dates div{display:block}html[data-lang=ja] .dates small{margin-bottom:2px}}
 @media (min-width:601px){html[data-lang=ja] .dates b{font-size:clamp(15px,1.65vw,18px);white-space:normal;word-break:keep-all}}
 .dates b.tp{white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
+.mediakit{border-top:1px solid var(--line)}
+.ch.mk{grid-template-columns:repeat(5,minmax(0,1fr))}
+html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .mk a[data-l=en]{border-color:var(--red)}html[data-lang=ja] .mk a[data-l=ja]{border-color:var(--red)}html[data-lang=zhs] .mk a[data-l=zhs]{border-color:var(--red)}html[data-lang=zht] .mk a[data-l=zht]{border-color:var(--red)}
+@media (max-width:900px){.ch.mk{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.ch.mk{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -501,6 +506,20 @@ footer img{width:120px;opacity:.85}
       <div><dt>DirectX</dt><dd><span class="ko">버전 12</span><span class="en">Version 12</span><span class="ja">バージョン 12</span><span class="zhs">版本 12</span><span class="zht">版本 12</span></dd></div>
       <div><dt><span class="ko">저장 공간</span><span class="en">Storage</span><span class="ja">ストレージ</span><span class="zhs">存储空间</span><span class="zht">儲存空間</span></dt><dd><span class="ko">30GB 사용 가능 공간</span><span class="en">30GB available space</span><span class="ja">30GB の空き容量</span><span class="zhs">30GB 可用空间</span><span class="zht">30GB 可用空間</span></dd></div>
     </dl>
+  </div>
+</section>
+
+<section class="band mediakit">
+  <div class="wrap">
+    <h2 class="fit">Media Kit</h2>
+    <p class="lead"><span class="ko">로고, 키 아트, 스크린샷 등 보도·콘텐츠 제작용 자료를 언어별로 내려받을 수 있습니다.</span><span class="en">Download logos, key art, screenshots and other assets for press and content creation, by language.</span><span class="ja">ロゴ、キービジュアル、スクリーンショットなど、記事やコンテンツ制作用の素材を言語別にダウンロードいただけます。</span><span class="zhs">可按语言下载Logo、主视觉、截图等用于报道及内容创作的素材。</span><span class="zht">可依語言下載Logo、主視覺、截圖等用於報導及內容創作的素材。</span></p>
+    <div class="ch mk">
+      <a data-l="ko" href="https://drive.google.com/drive/folders/1LJzj9Q3q9NZED5ck94277vVdrICukuBs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h5l2 2.5h8A1.5 1.5 0 0 1 21 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm8 5.5v4.6l-1.8-1.8-1.1 1.1L12 18.8l3.9-3.9-1.1-1.1-1.8 1.8V11H11Z"/></svg><span><b>한국어</b><small>Google Drive</small></span></a>
+      <a data-l="en" href="https://drive.google.com/drive/folders/1bEDeVnb42yWDkzYB6sDr-Q1tTVBhyTy2" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h5l2 2.5h8A1.5 1.5 0 0 1 21 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm8 5.5v4.6l-1.8-1.8-1.1 1.1L12 18.8l3.9-3.9-1.1-1.1-1.8 1.8V11H11Z"/></svg><span><b>English</b><small>Google Drive</small></span></a>
+      <a data-l="ja" href="https://drive.google.com/drive/folders/1sPzDJHoI1pYXDxL5RPbCaaJByOFRjTuj" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h5l2 2.5h8A1.5 1.5 0 0 1 21 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm8 5.5v4.6l-1.8-1.8-1.1 1.1L12 18.8l3.9-3.9-1.1-1.1-1.8 1.8V11H11Z"/></svg><span><b>日本語</b><small>Google Drive</small></span></a>
+      <a data-l="zhs" href="https://drive.google.com/drive/folders/1PiE2dPX6l-sIQ5gXRD2982jU5p-rT_HY" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h5l2 2.5h8A1.5 1.5 0 0 1 21 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm8 5.5v4.6l-1.8-1.8-1.1 1.1L12 18.8l3.9-3.9-1.1-1.1-1.8 1.8V11H11Z"/></svg><span><b>简体中文</b><small>Google Drive</small></span></a>
+      <a data-l="zht" href="https://drive.google.com/drive/folders/1vXigs80MWGZDmaND8f-fBWhU1CzD_vLK" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h5l2 2.5h8A1.5 1.5 0 0 1 21 8v10.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5v-13Zm8 5.5v4.6l-1.8-1.8-1.1 1.1L12 18.8l3.9-3.9-1.1-1.1-1.8 1.8V11H11Z"/></svg><span><b>繁體中文</b><small>Google Drive</small></span></a>
+    </div>
   </div>
 </section>
 
