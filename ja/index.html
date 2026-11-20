@@ -249,12 +249,12 @@ footer img{width:120px;opacity:.85}
 
 @media (max-width:900px){.ch.mk{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.ch.mk{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.secnav{position:fixed;left:clamp(16px,2vw,32px);top:50%;transform:translateY(-50%);z-index:40;display:none;flex-direction:column;gap:2px}
-.secnav a{display:flex;align-items:center;gap:10px;padding:6px 8px;color:var(--mute);text-decoration:none;font-size:13px;line-height:1.3;white-space:nowrap;border-radius:4px;transition:color .2s}
-.secnav a i{flex:none;width:8px;height:8px;border-radius:50%;border:1px solid currentColor;transition:background .2s,transform .2s}
+.secnav{position:fixed;left:clamp(16px,2vw,36px);top:50%;transform:translateY(-50%);z-index:40;display:none;flex-direction:column;padding-left:18px}
+.secnav::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:rgba(255,255,255,.14);border-radius:2px}
+.secnav .thumb{position:absolute;left:0;top:0;width:2px;height:var(--th,30px);background:var(--red);border-radius:2px;box-shadow:0 0 10px rgba(230,57,70,.55);will-change:transform}
+.secnav a{display:block;padding:7px 4px;color:var(--mute);text-decoration:none;font-size:16px;line-height:1.35;white-space:nowrap;transition:color .25s}
 .secnav a:hover{color:var(--ink)}
 .secnav a.on{color:var(--ink);font-weight:700}
-.secnav a.on i{background:var(--red);border-color:var(--red);transform:scale(1.25)}
 .secnav a:focus-visible{outline:2px solid var(--red2);outline-offset:2px}
 @media (min-width:1400px){.secnav{display:flex}}
 section[id],header[id]{scroll-margin-top:16px}
@@ -267,15 +267,16 @@ html[data-lang=ko] .mk a[data-l=ko],html[data-lang=en] .mk a[data-l=en],html[dat
 <div class="demo" id="demo"><span class="ko">미리보기 모드 — 이 화면에서 제출한 내용은 저장되지 않습니다.</span><span class="en">Preview mode — submissions on this page are not saved.</span><span class="ja">プレビューモード — この画面から送信した内容は保存されません。</span><span class="zhs">预览模式 — 在此页面提交的内容不会被保存。</span><span class="zht">預覽模式 — 在此頁面提交的內容不會被儲存。</span></div>
 
 <nav class="secnav" aria-label="Sections">
-  <a href="#top" data-sec="top"><i></i><span class="ko">홈</span><span class="en">Top</span><span class="ja">トップ</span><span class="zhs">首页</span><span class="zht">首頁</span></a>
-  <a href="#letter" data-sec="letter"><i></i><span class="ko">인사말</span><span class="en">Greeting</span><span class="ja">ごあいさつ</span><span class="zhs">致辞</span><span class="zht">致詞</span></a>
-  <a href="#how" data-sec="how"><i></i><span class="ko">참여 방법</span><span class="en">How it works</span><span class="ja">参加方法</span><span class="zhs">参与方式</span><span class="zht">參與方式</span></a>
-  <a href="#game" data-sec="game"><i></i><span class="ko">게임 소개</span><span class="en">About the game</span><span class="ja">ゲーム紹介</span><span class="zhs">游戏介绍</span><span class="zht">遊戲介紹</span></a>
-  <a href="#apply" data-sec="apply"><i></i><span class="ko">신청서</span><span class="en">Apply</span><span class="ja">応募フォーム</span><span class="zhs">报名表</span><span class="zht">報名表</span></a>
-  <a href="#faq" data-sec="faq"><i></i><span class="ko">FAQ</span><span class="en">FAQ</span><span class="ja">よくある質問</span><span class="zhs">常见问题</span><span class="zht">常見問題</span></a>
-  <a href="#channels" data-sec="channels"><i></i><span class="ko">공식 채널</span><span class="en">Channels</span><span class="ja">公式チャンネル</span><span class="zhs">官方频道</span><span class="zht">官方頻道</span></a>
-  <a href="#specs" data-sec="specs"><i></i><span class="ko">PC 사양</span><span class="en">PC specs</span><span class="ja">動作環境</span><span class="zhs">PC配置</span><span class="zht">PC配備</span></a>
-  <a href="#media" data-sec="media"><i></i><span class="ko">Media Kit</span><span class="en">Media Kit</span><span class="ja">Media Kit</span><span class="zhs">Media Kit</span><span class="zht">Media Kit</span></a>
+  <b class="thumb" aria-hidden="true"></b>
+  <a href="#top" data-sec="top"><span class="ko">홈</span><span class="en">Top</span><span class="ja">トップ</span><span class="zhs">首页</span><span class="zht">首頁</span></a>
+  <a href="#letter" data-sec="letter"><span class="ko">인사말</span><span class="en">Greeting</span><span class="ja">ごあいさつ</span><span class="zhs">致辞</span><span class="zht">致詞</span></a>
+  <a href="#how" data-sec="how"><span class="ko">참여 방법</span><span class="en">How it works</span><span class="ja">参加方法</span><span class="zhs">参与方式</span><span class="zht">參與方式</span></a>
+  <a href="#game" data-sec="game"><span class="ko">게임 소개</span><span class="en">About the game</span><span class="ja">ゲーム紹介</span><span class="zhs">游戏介绍</span><span class="zht">遊戲介紹</span></a>
+  <a href="#apply" data-sec="apply"><span class="ko">신청서</span><span class="en">Apply</span><span class="ja">応募フォーム</span><span class="zhs">报名表</span><span class="zht">報名表</span></a>
+  <a href="#faq" data-sec="faq"><span class="ko">FAQ</span><span class="en">FAQ</span><span class="ja">よくある質問</span><span class="zhs">常见问题</span><span class="zht">常見問題</span></a>
+  <a href="#channels" data-sec="channels"><span class="ko">공식 채널</span><span class="en">Channels</span><span class="ja">公式チャンネル</span><span class="zhs">官方频道</span><span class="zht">官方頻道</span></a>
+  <a href="#specs" data-sec="specs"><span class="ko">PC 사양</span><span class="en">PC specs</span><span class="ja">動作環境</span><span class="zhs">PC配置</span><span class="zht">PC配備</span></a>
+  <a href="#media" data-sec="media"><span class="ko">Media Kit</span><span class="en">Media Kit</span><span class="ja">Media Kit</span><span class="zhs">Media Kit</span><span class="zht">Media Kit</span></a>
 </nav>
 <header class="hero" id="top">
   <div class="bgimg" role="img" aria-label="WPCA"></div>
@@ -687,12 +688,22 @@ function psShow(){
 const recapToken=()=>recapId===null?'':(grecaptcha.getResponse(recapId)||'');
 const recapReset=()=>{try{if(recapId!==null)grecaptcha.reset(recapId)}catch(e){}};
 psShow();
-// ---------- 섹션 네비게이터 ----------
-{const links=$$('.secnav a'),secs=links.map(a=>document.getElementById(a.dataset.sec)).filter(Boolean);
- const spy=()=>{const y=innerHeight*0.35;let cur=secs[0];for(const s of secs){if(s.getBoundingClientRect().top<=y)cur=s}
-   if(innerHeight+scrollY>=document.documentElement.scrollHeight-2)cur=secs[secs.length-1];
-   links.forEach(a=>a.classList.toggle('on',a.dataset.sec===cur.id))};
- addEventListener('scroll',spy,{passive:true});addEventListener('resize',spy);spy();}
+// ---------- 섹션 네비게이터: 긴 선 위를 현재 위치가 스크롤처럼 이동 ----------
+{const nav=$('.secnav'),thumb=$('.secnav .thumb'),links=$$('.secnav a'),secs=links.map(a=>document.getElementById(a.dataset.sec));
+ let raf=0;
+ const spy=()=>{raf=0;if(getComputedStyle(nav).display==='none')return;
+   const y=scrollY+innerHeight*0.35,end=document.documentElement.scrollHeight-innerHeight;
+   const tops=secs.map(s=>s.getBoundingClientRect().top+scrollY);
+   let i=0;for(let k=0;k<tops.length;k++)if(tops[k]<=y)i=k;
+   let p=i<tops.length-1?(y-tops[i])/(tops[i+1]-tops[i]):0;
+   if(scrollY>=end-2){i=tops.length-1;p=0}
+   p=Math.max(0,Math.min(1,p));
+   const a=links[i],b=links[Math.min(i+1,links.length-1)];
+   const pos=a.offsetTop+(b.offsetTop-a.offsetTop)*p, h=a.offsetHeight+(b.offsetHeight-a.offsetHeight)*p;
+   thumb.style.transform=`translateY(${pos}px)`;thumb.style.setProperty('--th',h+'px');
+   links.forEach((l,k)=>l.classList.toggle('on',k===(p>0.5&&i<links.length-1?i+1:i)))};
+ const req=()=>{if(!raf)raf=requestAnimationFrame(spy)};
+ addEventListener('scroll',req,{passive:true});addEventListener('resize',req);spy();}
 (async()=>{
   const qs=new URLSearchParams(location.search);
   if(qs.get('openid.mode')==='id_res'||qs.get('openid.mode')==='cancel'){
