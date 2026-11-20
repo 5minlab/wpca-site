@@ -692,7 +692,7 @@ psShow();
 {const nav=$('.secnav'),thumb=$('.secnav .thumb'),links=$$('.secnav a'),secs=links.map(a=>document.getElementById(a.dataset.sec));
  let raf=0;
  const spy=()=>{raf=0;if(getComputedStyle(nav).display==='none')return;
-   const y=scrollY+innerHeight*0.35,end=document.documentElement.scrollHeight-innerHeight;
+   const off=innerHeight*0.35,y=scrollY+Math.min(off,scrollY),end=document.documentElement.scrollHeight-innerHeight;
    const tops=secs.map(s=>s.getBoundingClientRect().top+scrollY);
    let i=0;for(let k=0;k<tops.length;k++)if(tops[k]<=y)i=k;
    let p=i<tops.length-1?(y-tops[i])/(tops[i+1]-tops[i]):0;
