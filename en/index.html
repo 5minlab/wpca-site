@@ -246,15 +246,38 @@ footer img{width:120px;opacity:.85}
 .dates b.tp{white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
 .mediakit{border-top:1px solid var(--line)}
 .ch.mk{grid-template-columns:repeat(5,minmax(0,1fr))}
-html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .mk a[data-l=en]{border-color:var(--red)}html[data-lang=ja] .mk a[data-l=ja]{border-color:var(--red)}html[data-lang=zhs] .mk a[data-l=zhs]{border-color:var(--red)}html[data-lang=zht] .mk a[data-l=zht]{border-color:var(--red)}
+
 @media (max-width:900px){.ch.mk{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:560px){.ch.mk{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.secnav{position:fixed;left:clamp(16px,2vw,32px);top:50%;transform:translateY(-50%);z-index:40;display:none;flex-direction:column;gap:2px}
+.secnav a{display:flex;align-items:center;gap:10px;padding:6px 8px;color:var(--mute);text-decoration:none;font-size:13px;line-height:1.3;white-space:nowrap;border-radius:4px;transition:color .2s}
+.secnav a i{flex:none;width:8px;height:8px;border-radius:50%;border:1px solid currentColor;transition:background .2s,transform .2s}
+.secnav a:hover{color:var(--ink)}
+.secnav a.on{color:var(--ink);font-weight:700}
+.secnav a.on i{background:var(--red);border-color:var(--red);transform:scale(1.25)}
+.secnav a:focus-visible{outline:2px solid var(--red2);outline-offset:2px}
+@media (min-width:1400px){.secnav{display:flex}}
+section[id],header[id]{scroll-margin-top:16px}
+.mk a{display:none!important}
+html[data-lang=ko] .mk a[data-l=ko],html[data-lang=en] .mk a[data-l=en],html[data-lang=ja] .mk a[data-l=ja],html[data-lang=zhs] .mk a[data-l=zhs],html[data-lang=zht] .mk a[data-l=zht]{display:flex!important}
+.ch.mk{grid-template-columns:minmax(0,360px)!important}
 </style>
 </head>
 <body>
 <div class="demo" id="demo"><span class="ko">미리보기 모드 — 이 화면에서 제출한 내용은 저장되지 않습니다.</span><span class="en">Preview mode — submissions on this page are not saved.</span><span class="ja">プレビューモード — この画面から送信した内容は保存されません。</span><span class="zhs">预览模式 — 在此页面提交的内容不会被保存。</span><span class="zht">預覽模式 — 在此頁面提交的內容不會被儲存。</span></div>
 
-<header class="hero">
+<nav class="secnav" aria-label="Sections">
+  <a href="#top" data-sec="top"><i></i><span class="ko">홈</span><span class="en">Top</span><span class="ja">トップ</span><span class="zhs">首页</span><span class="zht">首頁</span></a>
+  <a href="#letter" data-sec="letter"><i></i><span class="ko">인사말</span><span class="en">Greeting</span><span class="ja">ごあいさつ</span><span class="zhs">致辞</span><span class="zht">致詞</span></a>
+  <a href="#how" data-sec="how"><i></i><span class="ko">참여 방법</span><span class="en">How it works</span><span class="ja">参加方法</span><span class="zhs">参与方式</span><span class="zht">參與方式</span></a>
+  <a href="#game" data-sec="game"><i></i><span class="ko">게임 소개</span><span class="en">About the game</span><span class="ja">ゲーム紹介</span><span class="zhs">游戏介绍</span><span class="zht">遊戲介紹</span></a>
+  <a href="#apply" data-sec="apply"><i></i><span class="ko">신청서</span><span class="en">Apply</span><span class="ja">応募フォーム</span><span class="zhs">报名表</span><span class="zht">報名表</span></a>
+  <a href="#faq" data-sec="faq"><i></i><span class="ko">FAQ</span><span class="en">FAQ</span><span class="ja">よくある質問</span><span class="zhs">常见问题</span><span class="zht">常見問題</span></a>
+  <a href="#channels" data-sec="channels"><i></i><span class="ko">공식 채널</span><span class="en">Channels</span><span class="ja">公式チャンネル</span><span class="zhs">官方频道</span><span class="zht">官方頻道</span></a>
+  <a href="#specs" data-sec="specs"><i></i><span class="ko">PC 사양</span><span class="en">PC specs</span><span class="ja">動作環境</span><span class="zhs">PC配置</span><span class="zht">PC配備</span></a>
+  <a href="#media" data-sec="media"><i></i><span class="ko">Media Kit</span><span class="en">Media Kit</span><span class="ja">Media Kit</span><span class="zhs">Media Kit</span><span class="zht">Media Kit</span></a>
+</nav>
+<header class="hero" id="top">
   <div class="bgimg" role="img" aria-label="WPCA"></div>
   <div class="top">
     <div class="emb"><img src="data:image/webp;base64,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" alt=""><span>World Phasebound Control Authority</span></div>
@@ -296,7 +319,7 @@ html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .
   </div>
 </header>
 
-<section class="band letter">
+<section class="band letter" id="letter">
   <div class="wrap">
     <div class="note">
         <h2 class="fit"><span class="ko">안녕하세요. Team Canary 입니다.</span><span class="en">Hello, we're Team Canary.</span><span class="ja">こんにちは、Team Canaryです。</span><span class="zhs">大家好，我们是Team Canary。</span><span class="zht">大家好，我們是Team Canary。</span></h2>
@@ -330,7 +353,7 @@ html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .
   </div>
 </section>
 
-<section class="band notice">
+<section class="band notice" id="how">
   <div class="wrap">
     <h2 class="fit"><span class="ko">참여 방법</span><span class="en">How it works</span><span class="ja">参加方法</span><span class="zhs">参与方式</span><span class="zht">參與方式</span></h2>
     <p class="lead"><span class="ko">신청은 간단한 설문과 메일 주소 입력으로 끝납니다. 키는 추첨으로 지급됩니다.</span><span class="en">Fill in a short survey and your email address. Keys are given out by draw.</span><span class="ja">応募は簡単なアンケートとメールアドレスの入力だけで完了します。キーは抽選で配布いたします。</span><span class="zhs">只需填写简单问卷和邮箱即可完成报名。激活码将通过抽选发放。</span><span class="zht">只需填寫簡單問卷與電子郵件即可完成報名。序號將透過抽選發放。</span></p>
@@ -347,7 +370,7 @@ html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .
   </div>
 </section>
 
-<section class="band">
+<section class="band" id="game">
   <div class="wrap about">
     <div>
       <h2 class="fit"><span class="ko">'허구'를 진압하라</span><span class="en">Contain the Phasebounds</span><span class="ja">「虚構」を鎮圧せよ</span><span class="zhs">镇压“虚幻”</span><span class="zht">鎮壓「虛幻」</span></h2>
@@ -465,7 +488,7 @@ html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .
   </div>
 </section>
 
-<section class="band">
+<section class="band" id="faq">
   <div class="wrap">
     <h2 class="fit"><span class="ko">자주 묻는 질문</span><span class="en">FAQ</span><span class="ja">よくある質問</span><span class="zhs">常见问题</span><span class="zht">常見問題</span></h2>
     <div class="faq">
@@ -479,7 +502,7 @@ html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .
   </div>
 </section>
 
-<section class="band channels">
+<section class="band channels" id="channels">
   <div class="wrap">
     <h2 class="fit"><span class="ko">공식 채널</span><span class="en">Official channels</span><span class="ja">公式チャンネル</span><span class="zhs">官方频道</span><span class="zht">官方頻道</span></h2>
     <p class="lead"><span class="ko">테스트 공지와 새 소식은 공식 채널에서 가장 먼저 전해드립니다.</span><span class="en">Test announcements and news land here first.</span><span class="ja">テストのお知らせや最新情報は、公式チャンネルでいち早くお届けします。</span><span class="zhs">测试公告与最新消息将率先在官方频道发布。</span><span class="zht">測試公告與最新消息將率先在官方頻道發布。</span></p>
@@ -494,7 +517,7 @@ html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .
   </div>
 </section>
 
-<section class="band specs">
+<section class="band specs" id="specs">
   <div class="wrap">
     <h2 class="fit"><span class="ko">PC 최소 사양</span><span class="en">PC minimum requirements</span><span class="ja">PC 最低動作環境</span><span class="zhs">PC 最低配置</span><span class="zht">PC 最低配備</span></h2>
     <p class="lead"><span class="ko">Steam(PC)으로 참여하시는 분은 아래 사양을 확인해 주세요.</span><span class="en">If you are joining on Steam (PC), please check the specs below.</span><span class="ja">Steam（PC）で参加される方は、以下の動作環境をご確認ください。</span><span class="zhs">通过Steam（PC）参与的玩家，请确认以下配置。</span><span class="zht">透過Steam（PC）參與的玩家，請確認以下配備。</span></p>
@@ -509,7 +532,7 @@ html[data-lang=ko] .mk a[data-l=ko]{border-color:var(--red)}html[data-lang=en] .
   </div>
 </section>
 
-<section class="band mediakit">
+<section class="band mediakit" id="media">
   <div class="wrap">
     <h2 class="fit">Media Kit</h2>
     <p class="lead"><span class="ko">로고, 키 아트, 스크린샷 등 보도·콘텐츠 제작용 자료를 언어별로 내려받을 수 있습니다.</span><span class="en">Download logos, key art, screenshots and other assets for press and content creation, by language.</span><span class="ja">ロゴ、キービジュアル、スクリーンショットなど、記事やコンテンツ制作用の素材を言語別にダウンロードいただけます。</span><span class="zhs">可按语言下载Logo、主视觉、截图等用于报道及内容创作的素材。</span><span class="zht">可依語言下載Logo、主視覺、截圖等用於報導及內容創作的素材。</span></p>
@@ -664,6 +687,12 @@ function psShow(){
 const recapToken=()=>recapId===null?'':(grecaptcha.getResponse(recapId)||'');
 const recapReset=()=>{try{if(recapId!==null)grecaptcha.reset(recapId)}catch(e){}};
 psShow();
+// ---------- 섹션 네비게이터 ----------
+{const links=$$('.secnav a'),secs=links.map(a=>document.getElementById(a.dataset.sec)).filter(Boolean);
+ const spy=()=>{const y=innerHeight*0.35;let cur=secs[0];for(const s of secs){if(s.getBoundingClientRect().top<=y)cur=s}
+   if(innerHeight+scrollY>=document.documentElement.scrollHeight-2)cur=secs[secs.length-1];
+   links.forEach(a=>a.classList.toggle('on',a.dataset.sec===cur.id))};
+ addEventListener('scroll',spy,{passive:true});addEventListener('resize',spy);spy();}
 (async()=>{
   const qs=new URLSearchParams(location.search);
   if(qs.get('openid.mode')==='id_res'||qs.get('openid.mode')==='cancel'){
